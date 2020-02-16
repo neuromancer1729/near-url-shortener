@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+
+<body>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+    <h1>Hello world</h1>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/nearlib@0.21.0/dist/nearlib.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script src="/config.js"></script>
+  <script src="/main.js"></script>
+
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+        redirect();
+    })
+
+
+    async function redirect(){
+
+        console.log('nearConfig', nearConfig);
+
+        // Initializing the contract.
+        // For now we need to specify method names from the contract manually.
+        // It also takes the Account ID which it would use for signing transactions.
+        contract = await near.loadContract(nearConfig.contractName, {
+            viewMethods: ['getMessages','getUrls', 'findURL'],
+            changeMethods: ['addMessage', 'shortenURL'],
+            sender: window.accountId,
+        });
+
+
+        var id = window.location.href.split('?id=')[1]
+        var url =''
+        if(!id){
+            return
+        }
+        try{
+            $('body').hide();
+            console.log(id)
+            id = Number(id);
+            contract.findURL({uid:id})
+                .then(function(data){
+                    console.log(data);
+                    window.location.href = data.toString();
+                })
+                .catch(console.log);
+            
+        }catch(err){
+            console.log(err);
+            return window.alert("INVALID ID VALUE"); 
+        }
+    }
+
+
+</script>
+
+</body>
+</html>

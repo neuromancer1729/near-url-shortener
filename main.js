@@ -1,6 +1,6 @@
 // Defining some global constants
 const animateClass = 'glyphicon-refresh-animate';
-const loadingHtml = '<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading';
+const loadingHtml = '<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> watching for new changes';
 const appTitle = 'NEAR Guest Book';
 
 // Defining global variables that we initialize asynchronously later.
@@ -41,9 +41,8 @@ function signedOutFlow() {
 
 // Renders given array of messages
 function renderMessages(messages) {
-  let objs = [];
+  $("#tx-table").empty();
   for (let i = 0; i < messages.length; ++i) {
-    console.log(messages[i]);
     shortUrl = '/s?id='+messages[i].uid;
     shortUrl2 = 'ne4r.now.sh/s?id='+messages[i].uid;
     
@@ -59,7 +58,6 @@ function renderMessages(messages) {
           $("#tx-table").prepend(row);
         }
   }
-  $('#messages').empty().append(objs.reverse());
   $('#refresh-span').removeClass(animateClass);
 }
 
