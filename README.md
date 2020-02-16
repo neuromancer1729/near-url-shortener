@@ -1,6 +1,6 @@
-# NEAR Guest Book
+# NEAR Url Shortener
 
-Implements simple guest book with NEAR DevNet wallet integration.
+Implements simple onchain url shortener with NEAR DevNet wallet integration.
 
 To checkout out wallet go to: http://wallet.nearprotocol.com
 
