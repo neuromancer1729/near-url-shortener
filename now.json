@@ -1,4 +1,8 @@
 {
-  "name": "near-url-shortner",
-  "alias": "near.now.sh"
+  "name": "near-url-shortner2",
+  "alias": "ne4r.now.sh",
+  "type": "static",
+  "files": [
+    "src"
+  ]
 }
