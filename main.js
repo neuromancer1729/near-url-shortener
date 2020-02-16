@@ -45,7 +45,8 @@ function renderMessages(messages) {
   for (let i = 0; i < messages.length; ++i) {
     console.log(messages[i]);
     shortUrl = '/s?id='+messages[i].uid;
-    shortUrl2 = 'app.near.ai/app/pye3o6pgr/s?id='+messages[i].uid;
+    shortUrl2 = 'ne4r.now.sh/s?id='+messages[i].uid;
+    
     var row = "\
         <tr>\
           <td><p class='smaller'>{0}</p></td>\
@@ -54,16 +55,9 @@ function renderMessages(messages) {
           <td><a target='_blank' href='https://explorer.nearprotocol.com/tx/{4}'>link</a></td>\
         </tr>".f(messages[i].longURL, shortUrl, shortUrl2, 'getblockheight', 'gettransactionhash' );
         //console.log(row);
-        $("#tx-table").prepend(row);
-
-    objs.push(
-      $('<div/>').addClass('row').append([
-        $('<div/>').addClass('col-sm-3').append(
-          $('<strong/>').text(messages[i].sender)
-        ),
-        $('<div/>').addClass('col-sm-9').addClass('message-text').text(messages[i].longURL),
-      ])
-    );
+        if(isValidUrl(messages[i].longURL)){
+          $("#tx-table").prepend(row);
+        }
   }
   $('#messages').empty().append(objs.reverse());
   $('#refresh-span').removeClass(animateClass);
